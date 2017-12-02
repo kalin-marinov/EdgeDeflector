@@ -1,9 +1,10 @@
 # Changes
 This is a fork of [da2x/EdgeDeflector](https://github.com/da2x/EdgeDeflector).
-The change, that I have added is the functionality to change the search engine as well.
-The desired search engine can be configured in the *EdgeDeflector.exe.config*. The keyword placeholder will be replaced with the searched string provided from the Search UI.
+The modification, that I perfomed, is adding the functionality to change the search engine as well.
 
-This only affects urls that are targeted for bing and contain a query paramter.
+The desired engine can be configured in the *EdgeDeflector.exe.config*. The keyword placeholder will be replaced with the searched string provided from the Search UI.
+
+This only affects urls that are targeted for bing and contain a search query parameter.
 
 # EdgeDeflector
 
@@ -38,9 +39,6 @@ Yes. EdgeDeflector doesn’t interfere with either Cortana or the Windows shell 
 
 Yes it does, but no. Everything is done on your local computer. EdgeDeflector rewrites links which are forced by the Windows shell to open inside Microsoft Edge to open using your default web browser instead. No data is collected about you nor even stored on your local computer.
 
-## Will EdgeDeflector redirect Bing searches to Google?
-
-[No.](https://github.com/da2x/EdgeDeflector/wiki/Not-replacing-your-search-engine) You can use an extension in your favorite web browser to achieve this.
 
 ## How do I uninstall EdgeDeflector?
 
