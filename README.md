@@ -1,3 +1,10 @@
+# Changes
+This is a fork of [da2x/EdgeDeflector](https://github.com/da2x/EdgeDeflector).
+The change, that I have added is the functionality to change the search engine as well.
+The desired search engine can be configured in the *EdgeDeflector.exe.config*. The keyword placeholder will be replaced with the searched string provided from the Search UI.
+
+This only affects urls that are targeted for bing and contain a query paramter.
+
 # EdgeDeflector
 
 *EdgeDeflector* is  a small helper application that intercepts URIs that force-open web links in Microsoft Edge and redirects it to the system’s default web browser. This allows you to use Windows features like the Cortana assistant and built-in help links with the browser of your choice instead of being forced to use Microsoft Edge. With EdgeDefelctor, you’re free to use Firefox, Google Chrome, or whatever your favorite web browser might be!
