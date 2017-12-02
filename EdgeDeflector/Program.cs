@@ -7,6 +7,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
@@ -63,7 +64,7 @@ namespace EdgeDeflector
             shellcmd_key.Close();
 
             uriclass_key.SetValue("URL Protocol", string.Empty);
-            
+
             uriclass_key.Close();
 
             RegistryKey software_key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\EdgeUriDeflector", true);
@@ -77,7 +78,7 @@ namespace EdgeDeflector
             {
                 capability_key = software_key.CreateSubKey("Capabilities", true);
             }
-            
+
             capability_key.SetValue("ApplicationDescription", "Open web links normally forced to open in Microsoft Edge in your default web browser.");
             capability_key.SetValue("ApplicationName", "EdgeDeflector");
 
@@ -165,6 +166,28 @@ namespace EdgeDeflector
             return "http://" + new_uri;
         }
 
+        static string GetConfiguredSearchEngine()
+            => ConfigurationManager.AppSettings["DesiredSearchEngine"];
+
+
+        static string ChangeSearchEngine(string uri)
+        {
+            // Matches the "q" query string param - whether it will be first, in the middle or last parameter
+            var keywordMatch = Regex.Match(uri, @"[\?&]q=(.*?)(&|$)");
+            if (uri.Contains("bing.com") && keywordMatch.Success)
+            {
+                var searchEngine = GetConfiguredSearchEngine();
+
+                if (!string.IsNullOrWhiteSpace(searchEngine))
+                {
+                    var keyword = keywordMatch.Groups[1].Value;
+                    return searchEngine.Replace("{keyword}", keyword);
+                }
+            }
+
+            return uri;  // If it is not a search request, do nothing
+        }
+
         static void OpenUri(string uri)
         {
             if (!IsUri(uri) || !IsHttpUri(uri))
@@ -186,6 +209,9 @@ namespace EdgeDeflector
             if (args.Length == 1 && IsMsEdgeUri(args[0]))
             {
                 string uri = RewriteMsEdgeUriSchema(args[0]);
+                uri = ChangeSearchEngine(uri);
+
+                Console.WriteLine("New Uri is: " + uri);
                 OpenUri(uri);
             }
 
