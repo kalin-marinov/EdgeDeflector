@@ -2,7 +2,7 @@
 This is a fork of [da2x/EdgeDeflector](https://github.com/da2x/EdgeDeflector).
 The modification, that I perfomed, is adding the functionality to change the search engine as well.
 
-The desired engine can be configured in the *EdgeDeflector.exe.config*. The keyword placeholder will be replaced with the searched string provided from the Search UI.
+The desired engine can be configured in the *EdgeDeflector.exe.config*. The keyword placeholder will be replaced with the searched string provided from the Search UI. In case this parameter is left empty or removed from the configuration, the destination URL will not be modified.
 
 This only affects urls that are targeted for bing and contain a search query parameter.
 
